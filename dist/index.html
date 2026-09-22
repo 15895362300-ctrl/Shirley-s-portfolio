@@ -1,107 +1,11 @@
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#101522" />
-    <meta name="description" content="Shirley 的 AI 产品设计作品集：把真实业务中的混乱流程，整理成可运行的 AI 产品。" />
-    <title>Shirley | AI Product Designer</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="回到首页">
-        <span class="brand-mark">S</span>
-        <span>SHIRLEY<span class="brand-dot">.</span></span>
-      </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
-      <nav id="site-nav" class="site-nav" aria-label="主导航">
-        <a href="#work">项目</a>
-        <a href="#method">方法</a>
-        <a href="#about">关于</a>
-        <a class="nav-cta" href="#contact">联系我 <span aria-hidden="true">↗</span></a>
-      </nav>
-    </header>
-
-    <main id="top">
-      <section class="hero shell" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow"><span class="eyebrow-line"></span> AI PRODUCT DESIGNER / 朱心仪</p>
-          <h1 id="hero-title">把真实业务里的混乱流程，整理成<span class="accent">可运行的 AI 产品。</span></h1>
-          <p class="hero-intro">我从真实业务出发，把个人经验、团队协作和 AI 能力拆成清晰的工作流，再把工作流产品化为可验证、可复用的系统。</p>
-          <div class="hero-actions">
-            <a class="button button-dark" href="#work">查看精选项目 <span aria-hidden="true">↓</span></a>
-            <a class="text-link" href="#about">了解我的工作方式 <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-        <div class="hero-visual" aria-label="从混乱到系统的工作流示意图">
-          <div class="visual-caption">FROM CHAOS<br />TO SYSTEM</div>
-          <div class="orbit orbit-one"></div>
-          <div class="orbit orbit-two"></div>
-          <div class="flow-card flow-card-top"><span>01</span><strong>真实问题</strong><small>观察 / 拆解 / 定义</small></div>
-          <div class="flow-card flow-card-mid"><span>02</span><strong>工作流</strong><small>连接人、工具与数据</small></div>
-          <div class="flow-card flow-card-bottom"><span>03</span><strong>AI 产品</strong><small>验证 / 复用 / 放大</small></div>
-          <span class="visual-cross cross-one">+</span><span class="visual-cross cross-two">+</span>
-        </div>
-      </section>
-
-      <section class="signal-bar shell" aria-label="工作定位">
-        <p>我关注的不是把 AI 放进产品里，而是找到它真正能改变结果的那一步。</p>
-        <div class="signal-list"><span>01 / Workflow</span><span>02 / Agent</span><span>03 / System</span></div>
-      </section>
-
-      <section id="work" class="work-section shell" aria-labelledby="work-title">
-        <div class="section-heading">
-          <div><p class="eyebrow">SELECTED WORK / 精选项目</p><h2 id="work-title">把想法落到真实场景里。</h2></div>
-          <p class="section-note">从个人效率工具，到能被团队使用的业务系统，每个项目都从一个具体的卡点开始。</p>
-        </div>
-        <div class="filters" role="group" aria-label="项目筛选">
-          <button class="filter is-active" type="button" data-filter="all">全部项目</button>
-          <button class="filter" type="button" data-filter="product">产品系统</button>
-          <button class="filter" type="button" data-filter="workflow">工作流</button>
-          <button class="filter" type="button" data-filter="visual">视觉实验</button>
-        </div>
-        <div id="project-grid" class="project-grid">
-          <article class="project-card project-card-large" data-category="product workflow">
-            <div class="project-art art-command"><span class="art-label">COMMAND CENTER</span><div class="command-orbit"></div><div class="command-node node-a">任务</div><div class="command-node node-b">风险</div><div class="command-node node-c">排期</div><div class="command-core">AI<br />总控</div></div>
-            <div class="project-meta"><p class="project-index">01 / AI 业务系统</p><h3>AI 业务总控工作台</h3><p>把分散的任务、风险与 Agent 调度，收拢成一个能看懂、能执行的业务入口。</p><div class="tags"><span>Agent</span><span>工作台</span><span>系统设计</span></div></div>
-          </article>
-          <article class="project-card" data-category="product workflow">
-            <div class="project-art art-paint"><span class="art-label">PAINT ASSISTANT</span><div class="paint-panel"><i></i><i></i><i></i><strong>COLOR / FORM / RESULT</strong></div><div class="paint-swatch"></div></div>
-            <div class="project-meta"><p class="project-index">02 / 产品化工作流</p><h3>涂装辅助模拟器</h3><p>让颜色试错从手工反复，变成可视化、可比较的快速决策。</p><div class="tags"><span>工具产品</span><span>视觉 AI</span></div></div>
-          </article>
-          <article class="project-card" data-category="product workflow">
-            <div class="project-art art-auction"><span class="art-label">AUCTION OS</span><div class="auction-grid"><span>拍品目录</span><span>估价记录</span><span>交易状态</span><span>内容发布</span></div><div class="auction-line"></div></div>
-            <div class="project-meta"><p class="project-index">03 / 业务工作台</p><h3>收藏拍卖平台</h3><p>从拍品录入到内容发布，重构一个小团队可以持续运转的业务闭环。</p><div class="tags"><span>业务系统</span><span>信息架构</span></div></div>
-          </article>
-          <article class="project-card" data-category="workflow visual">
-            <div class="project-art art-3d"><span class="art-label">1:64 / AI + 3D</span><div class="cube cube-one"></div><div class="cube cube-two"></div><div class="art-note">RESEARCH<br />→ PROTOTYPE<br />→ VALIDATION</div></div>
-            <div class="project-meta"><p class="project-index">04 / 视觉与研发</p><h3>1:64 AI + 3D 研发流程</h3><p>把设计探索、方案验证和生产沟通压缩到一条更短的路径里。</p><div class="tags"><span>3D</span><span>研发流程</span></div></div>
-          </article>
-        </div>
-      </section>
-
-      <section id="method" class="method-section shell" aria-labelledby="method-title">
-        <div class="method-intro"><p class="eyebrow">THE LADDER / 能力进阶</p><h2 id="method-title">从会用工具，到设计系统。</h2><p>我把 AI 能力分成四层，每一层都对应一个更大的业务杠杆。</p></div>
-        <div class="ladder">
-          <div class="ladder-row"><span>LEVEL 01</span><h3>AI 作为个人工具</h3><p>先让一个人的研究、内容和视觉产出变快。</p><b>↗</b></div>
-          <div class="ladder-row"><span>LEVEL 02</span><h3>重构业务 Workflow</h3><p>找到流程里的等待、重复和信息断点。</p><b>↗</b></div>
-          <div class="ladder-row"><span>LEVEL 03</span><h3>把工作流产品化</h3><p>让经验变成团队可用、可复制的工具。</p><b>↗</b></div>
-          <div class="ladder-row"><span>LEVEL 04</span><h3>搭建 AI 业务系统</h3><p>用 Agent 和 Skill 连接更复杂的业务协作。</p><b>↗</b></div>
-        </div>
-      </section>
-
-      <section id="about" class="about-section shell" aria-labelledby="about-title">
-        <div><p class="eyebrow">A NOTE FROM SHIRLEY / 关于我</p><h2 id="about-title">我喜欢把模糊的事情，做成下一步很清楚的东西。</h2></div>
-        <div class="about-copy"><p>我是朱心仪，一名关注 AI 产品与工作流设计的产品设计师。我习惯在业务现场找问题，用产品思维拆解流程，再用 AI、原型和真实反馈把它推到能用。</p><p>比起单独设计一个界面，我更在意一套方法能不能让人少走一步弯路，让团队多一次确定性。</p><div class="about-facts"><span>AI PRODUCT / DESIGN / WORKFLOW</span><span>SHIRLEY · 2026</span></div></div>
-      </section>
-
-      <section id="contact" class="contact-section shell" aria-labelledby="contact-title">
-        <div class="contact-panel"><p class="eyebrow">LET'S MAKE THE NEXT SYSTEM</p><h2 id="contact-title">如果你也在把复杂的事，做成可运行的产品。</h2><a class="button button-light" href="https://github.com/15895362300-ctrl/Shirley-s-portfolio" target="_blank" rel="noreferrer">在 GitHub 查看完整项目 <span aria-hidden="true">↗</span></a></div>
-      </section>
-    </main>
-
-    <footer class="site-footer shell"><span>© 2026 Shirley / AI Product Designer</span><span>Made with clarity, not noise.</span></footer>
-    <script src="./app.js"></script>
-  </body>
-</html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Shirley · 朱心仪 AI 产品经理作品集</title><meta name="description" content="从真实问题出发，用 AI 连接创意与产品。个人履历与精选项目。"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23141414'/%3E%3Ctext x='12' y='47' font-size='44' fill='%23e7ff79'%3EQ%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="hero.css"><link rel="stylesheet" href="refinements.css"><link rel="stylesheet" href="featured.css"><link rel="stylesheet" href="flow.css"><link rel="stylesheet" href="flip-cards.css"><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@1,500&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="project-navigation.css"></head><body>
+<div id="intro"><svg viewBox="0 0 1000 180" role="img" aria-label="MAKE IT REAL."><defs><clipPath id="wipe"><rect id="wipeRect" width="0" height="180"/></clipPath></defs><text x="500" y="125" text-anchor="middle" class="stroke">MAKE IT REAL.</text><text x="500" y="125" text-anchor="middle" class="fill" clip-path="url(#wipe)">MAKE IT REAL.</text></svg><span>IDEAS → INTELLIGENCE → IMPACT</span><button id="skip">跳过开场 ↗</button></div>
+<header><a class="brand" href="#home"><span data-bind="name">Shirley</span><sup>®</sup><i>✳</i></a><nav aria-label="主导航"><a href="#about">关于我</a><a href="#index">作品目录</a><a href="#projects">精选项目</a><a href="#contact">联系我</a></nav><button class="contact" data-goto="4">一起聊聊 ↗</button><button id="menu" aria-expanded="false" aria-label="打开导航"><span></span><span></span><span></span></button></header><div id="mobileNav"><a href="#about">个人履历</a><a href="#index">作品目录</a><a href="#projects">项目展示</a><a href="#contact">联系我</a></div>
+<div class="stage" aria-hidden="true"><video id="mainVideo" muted playsinline preload="auto"></video><div id="character"><img class="body" src="assets/standing-wide.png" alt=""><img class="closeup" src="assets/closeup-wide.png" alt=""></div><div class="stageShade"></div></div>
+<main id="scrollSpace"><section id="home" class="scene active"><div id="hero-root"></div></section>
+<section id="about" class="scene"><div class="about-left"><span class="eyebrow">01 / A LITTLE ABOUT ME</span><h2>保持好奇。<br>让想法<span class="serif">落地。</span></h2><p data-bind="bio">设计管理硕士，具备工作室经营、用户研究与商业交付经验。</p></div><div class="about-right"><div class="strengths"><span class="eyebrow">EXPERIENCE / 业务与产品</span><h3>业务洞察与产品化</h3><p>设计管理硕士，具备工作室经营、用户研究与商业交付经验，能从报价、产能排期和内容生产等真实场景识别问题，并转化为产品流程、规则与验收要求。</p><h3>验证与交付能力</h3><p>独立推进经营工作台与涂装产品的需求、原型、AI 辅助开发和测试；协调涂装师、建模师完成专业审核，对定价、交期与生成质量等关键决策保留人工确认。</p></div><div class="work-timeline"><h3>工作经历 <span>CAREER TIMELINE</span></h3><article><time>2025 — 至今</time><h4>上海曙乐光动漫科技有限公司</h4><span class="career-role">产品与品牌运营负责人</span><p>面向个人玩家与品牌客户，负责微缩模型业务的需求、报价、产品研发、生产排期、内容运营与交付；协调涂装师、建模师及客户，将原创产品和定制方案推进至实际生产。</p></article><article><time>2023.05 — 2023.08</time><h4>知易时光（北京）科技有限公司</h4><span class="career-role">产品经理实习生</span><p>参与百度 MEUX 视觉搜索体验优化，负责用户研究、需求拆解、原型设计与跨职能评审推进。</p></article></div><button class="textButton" id="editResume">编辑我的履历 ↗</button></div></section>
+<section id="index" class="scene"><div class="wideCopy"><span class="eyebrow">02 / SELECTED INDEX</span><h2>想法不止于<span class="serif">想法。</span></h2><div class="projectIndex"><button data-project="0"><span>01</span><strong data-title="0">AI 创作工作台</strong><em>AI PRODUCT / WORKFLOW</em><b>↗</b></button><button data-project="1"><span>02</span><strong data-title="1">微缩涂装体验</strong><em>INTERACTION / 3D</em><b>↗</b></button><button data-project="2"><span>03</span><strong data-title="2">从灵感到交付</strong><em>PRODUCT / OPERATIONS</em><b>↗</b></button></div><p class="muted">从业务流程到产品体验，八个项目，连接产品、设计与商业交付。</p></div></section>
+<section id="projects" class="scene"><div class="wideCopy"><span class="eyebrow">03 / SELECTED WORK · 04</span><h2>精选项目</h2><div id="projectCards"></div></div></section>
+<section id="contact" class="scene"><div class="wideCopy end"><span class="eyebrow">04 / WHAT'S NEXT?</span><h2 id="typewriter">Let's make<br>something matter.</h2><p class="lead">好产品，始于一次有意思的对话。</p><div class="services" aria-label="选择合作方向"><button aria-pressed="false">AI 产品</button><button aria-pressed="false">体验设计</button><button aria-pressed="false">创意合作</button><button aria-pressed="false">其他</button></div><div id="serviceStatus" aria-live="polite">选择你想聊的方向</div><a id="emailLink" class="email" href="#">设置联系邮箱 ↗</a><footer><span>© 2026 <span data-bind="name">Shirley</span> — MADE WITH CURIOSITY.</span><button data-goto="0">回到顶部 ↑</button></footer></div></section></main>
+<aside class="rail"><span id="sectionCount">01 / 05</span><div class="railTrack"><i id="progressBar"></i></div><span id="sectionLabel">封面</span></aside><button id="openEditor" aria-label="编辑网站内容">✎ <span>编辑内容</span></button>
+<dialog id="projectDetail" aria-label="作品详情"><div class="detail-top"><span class="eyebrow">PROJECT / 作品详情</span><button id="closeProject" aria-label="关闭作品详情">×</button></div><div class="caseGrid"><div><span id="caseTag" class="caps">AI PRODUCT / WORKFLOW</span><h2 id="caseTitle">AI 创作<br>工作台</h2><p id="caseDescription" class="lead">把零散的创作环节，连接成一个更清晰的工作流程。</p><div class="caseDetail"><span>我的角色</span><p id="caseRole">产品规划 / 体验设计</p><span>阶段结果</span><p id="caseResult">补充问题背景、关键决策与经过验证的项目结果。</p></div></div><div class="caseArt"><span>PROCESS / 核心工作内容</span><p id="caseWork"></p><button class="textButton" id="editProject">编辑当前项目 ↗</button></div></div><a id="demoLink" class="textButton" target="_blank" rel="noopener noreferrer" hidden>打开作品演示 ↗</a><div id="projectGallery"></div></dialog><dialog id="editor"><form id="editorForm"><div class="editorHeader"><div><small>YOUR SPACE</small><h2>让这里，属于你。</h2></div><button type="button" id="closeEditor" aria-label="关闭编辑器">×</button></div><p class="muted">修改实时保存在此浏览器；可导出备份。不会自动修改其他设备看到的已发布内容。</p><label>名字 / 标识<input name="name" maxlength="32"></label><label>首页介绍<input name="tagline" maxlength="100"></label><label>个人简介<textarea name="bio" rows="3"></textarea></label><label>当前角色<input name="role"></label><label>个人履历<textarea name="experience" rows="3"></textarea></label><label>联系邮箱<input name="email" type="email" placeholder="you@example.com"></label><details id="careerEditor"><summary>编辑业务能力与工作时间轴</summary><label>业务能力<textarea name="strengths" rows="6"></textarea></label><div id="careerFields"></div></details><details id="projectEditor"><summary>编辑项目内容 · 8 个作品</summary><div id="projectFields"></div></details><details><summary>替换滚动视频</summary><p class="muted">上传你的人物主视频进行本机预览。未滚动时保持第一帧，不自动播放。公开视频地址需允许浏览器加载。</p><label>主视频地址<input name="videoUrl" type="url" placeholder="https://…/main.mp4"></label><label>本机主视频<input id="videoFile" type="file" accept="video/mp4,video/webm"></label><p id="videoStatus" class="muted">当前使用人物关键帧过渡，尚未接入主视频。</p></details><div class="editorActions"><button class="primary" type="submit">保存修改</button><button type="button" id="restoreOld">读取上一版草稿</button><button type="button" id="export">导出内容</button><label class="import">导入内容<input id="import" type="file" accept="application/json" hidden></label></div><p id="saveStatus" aria-live="polite"></p></form></dialog><script src="resume-data.js"></script><script src="career-data.js"></script><script src="portfolio-expansion.js"></script><script src="project-catalog.js"></script><script src="app.js"></script><script src="hero.js"></script><script src="project-navigation.js" data-project="-1"></script></body></html>

@@ -1,25 +1,101 @@
-const filters = [...document.querySelectorAll('.filter')];
-const cards = [...document.querySelectorAll('.project-card')];
-const menuToggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('#site-nav');
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const defaults=window.resumeDefaults;
+let data=structuredClone(defaults),selectedProject=0;try{const saved=JSON.parse(localStorage.getItem('portfolio-content-v4')||localStorage.getItem('portfolio-content-v3')||localStorage.getItem('portfolio-content-v2'));if(saved)data=validate(saved)}catch{}
+function validate(d){if(d.schemaVersion!==4){const old=d.projects||[];let next;if(d.schemaVersion===3){next=[0,1,3,6,4,5,7,2].map((from,to)=>({...defaults.projects[to],...old[from],title:defaults.projects[to].title}))}else{next=structuredClone(defaults.projects);[[0,0],[7,3],[4,4]].forEach(([to,from])=>{if(old[from])next[to]={...next[to],...old[from],title:defaults.projects[to].title}})}d={...d,schemaVersion:4,projects:next}}const clean=structuredClone(defaults);for(const key of ['name','tagline','bio','role','experience','email','videoUrl'])if(typeof d[key]==='string')clean[key]=d[key].slice(0,4000);if(Array.isArray(d.projects))d.projects.slice(0,8).forEach((p,i)=>{for(const k of ['title','description','role','work','result','tag','coverUrl','demoUrl','galleryUrls','albumUrl','backUrl'])if(typeof p[k]==='string')clean.projects[i][k]=p[k].slice(0,4000)});if(typeof d.strengths==='string')clean.strengths=d.strengths.slice(0,8000);if(Array.isArray(d.careers))d.careers.slice(0,4).forEach((c,i)=>{for(const k of ['date','company','role','description'])if(typeof c[k]==='string')clean.careers[i][k]=c[k].slice(0,4000)});if(['京东毕业季与线下物料','京东毕业季与京东图书'].includes(clean.projects[4].title)){for(const k of ['title','description','role','work'])clean.projects[4][k]=defaults.projects[4][k]}if(d.jdCaseRevision!==1){Object.assign(clean.projects[4],defaults.projects[4])}clean.jdCaseRevision=1;if(d.contentCaseRevision!==2){Object.assign(clean.projects[5],defaults.projects[5])}clean.contentCaseRevision=2;if(d.paintAppCaseRevision!==1){clean.projects[2].demoUrl=defaults.projects[2].demoUrl}clean.paintAppCaseRevision=1;if(d.cardArtworkRevision!==1){[1,2,4,5].forEach(i=>{for(const key of ['coverUrl','backUrl']){const previous=clean.projects[i][key];if(!previous||previous.includes('ai-story-portfolio.citrus-moon-5505.chatgpt.site/'))clean.projects[i][key]=defaults.projects[i][key]}})}clean.cardArtworkRevision=1;if(d.auctionCaseRevision!==1){Object.assign(clean.projects[6],defaults.projects[6])}clean.auctionCaseRevision=1;return clean}
+function render(){renderPortfolio();renderCareer();window.portfolioProfile=data;window.dispatchEvent(new CustomEvent("portfolio:update",{detail:data})); document.title=data.name+' · 朱心仪 AI 产品经理作品集'; $$('[data-bind]').forEach(el=>el.textContent=data[el.dataset.bind]);$$('[data-title]').forEach(el=>el.textContent=data.projects[+el.dataset.title].title);$$('.projectIndex em').forEach((el,i)=>el.textContent=data.projects[i].tag);$('#emailLink').textContent=data.email?data.email+' ↗':'设置联系邮箱 ↗';$('#emailLink').href=data.email?'mailto:'+encodeURIComponent(data.email):'#';showProject(selectedProject)}
+function showProject(i){window.dispatchEvent(new CustomEvent('portfolio:project',{detail:i}));selectedProject=i;const p=data.projects[i];$('#caseTitle').textContent=p.title;$('#caseDescription').textContent=p.description;$('#caseRole').textContent=p.role;$('#caseResult').textContent=p.result;$('#caseTag').textContent=p.tag;$('#caseWork').textContent=p.work;renderGallery(p);$$('[data-tab]').forEach(b=>b.classList.toggle('selected',+b.dataset.tab===i))}
+let active=0,progress=0,desired=0,current=0,raf=0,mouseX=0,mouseY=0;const scenes=$$('.scene'),video=$('#mainVideo'),stage=$('.stage'),character=$('#character'),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+function height(){const duration=Number.isFinite(video.duration)&&video.duration>0?video.duration:6.5;$('#scrollSpace').style.height=Math.max(duration,1.1)*innerHeight+'px';requestTick()}
+window.addEventListener('portfolio:goto',e=>go(e.detail));window.addEventListener('portfolio:edit',()=>openEditor());
+function go(i){window.scrollTo({top:i/4*(document.documentElement.scrollHeight-innerHeight),behavior:reduced?'instant':'smooth'})}
+function requestTick(){if(!raf)raf=requestAnimationFrame(tick)}
+function tick(){raf=0;progress=clamp(scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight));const phase=progress*4;active=Math.round(phase);scenes.forEach((s,i)=>{let opacity=clamp(1-Math.abs(phase-i)*2);s.style.opacity=opacity;s.style.transform=`translateY(${(i-phase)*22}px)`;s.classList.toggle('active',opacity>.05);s.inert=opacity<.5});$('#sectionCount').textContent=String(active+1).padStart(2,'0')+' / 05';$('#sectionLabel').textContent=['封面','个人履历','作品目录','项目展示','联系我'][active];$('#progressBar').style.height=progress*100+'%';
+const move=clamp(phase),mobile=innerWidth<768;character.style.left='0';character.style.transform='none';character.style.opacity=clamp(1-(phase-1)*1.5);$('.closeup').style.opacity=clamp((move-.2)/.8);$('.stageShade').style.opacity=clamp((phase-1)*1.5);
+if(Number.isFinite(video.duration)&&video.duration>0){desired=progress*video.duration;current=reduced?desired:current+(desired-current)*.2;if(!video.seeking&&Math.abs(video.currentTime-current)>.018){try{video.currentTime=Math.min(current,Math.max(0,video.duration-.001))}catch{}}if(Math.abs(desired-current)>.01||video.seeking)requestTick()}}
+window.addEventListener('scroll',requestTick,{passive:true});window.addEventListener('resize',height);window.addEventListener('pointermove',e=>{if(innerWidth<1024||reduced)return;mouseX=clamp(e.clientX/innerWidth)*2-1;mouseY=clamp(e.clientY/innerHeight)*2-1;requestTick()},{passive:true});document.addEventListener('pointerleave',()=>{mouseX=mouseY=0;requestTick()});video.addEventListener('seeked',requestTick);video.addEventListener('loadedmetadata',()=>{current=0;video.pause();height();$('#videoStatus').textContent='视频已就绪：'+video.duration.toFixed(1)+' 秒，进度随滚动变化。';stage.classList.add('hasVideo')});video.addEventListener('error',()=>{stage.classList.remove('hasVideo');$('#videoStatus').textContent='视频无法加载，已恢复人物关键帧。请检查地址或重新选择文件。'});
+let objectUrl;function loadVideo(src){stage.classList.remove('hasVideo');video.pause();video.removeAttribute('src');if(src){if(!/^(https?:|blob:)/.test(src)){ $('#videoStatus').textContent='请使用有效的 https 视频地址。';return}video.src=src;video.muted=true;video.playsInline=true;video.preload='auto';video.load()}else{video.load();height()}}
+// iOS: seek only after metadata; user gesture may unlock decoder, then pause immediately.
+document.addEventListener('touchstart',()=>{if(video.src&&video.readyState>=1){const t=video.currentTime;video.play().then(()=>{video.pause();video.currentTime=t;requestTick()}).catch(()=>{})}},{once:true,passive:true});
+const names=['home','about','index','projects','contact'];$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const i=names.indexOf(a.getAttribute('href').slice(1));if(i>=0){e.preventDefault();go(i);closeMenu()}}));$$('[data-goto]').forEach(b=>b.onclick=()=>go(+b.dataset.goto));$$('[data-project]:not(.accordion-card):not(.portfolio-card)').forEach(b=>b.onclick=()=>{showProject(+b.dataset.project);go(3)});$$('[data-tab]').forEach(b=>b.onclick=()=>showProject(+b.dataset.tab));function closeMenu(){$('#menu').setAttribute('aria-expanded','false');$('#mobileNav').classList.remove('open')}$('#menu').onclick=()=>{const open=$('#menu').getAttribute('aria-expanded')!=='true';$('#menu').setAttribute('aria-expanded',String(open));$('#mobileNav').classList.toggle('open',open)};
+$$('.services button').forEach(b=>b.onclick=()=>{b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true');const items=$$('.services button[aria-pressed=true]').map(x=>x.textContent);$('#serviceStatus').textContent=items.length?'想聊聊：'+items.join(' / '):'选择你想聊的方向';if(data.email)$('#emailLink').href='mailto:'+encodeURIComponent(data.email)+'?subject='+encodeURIComponent('合作交流：'+items.join(' / '))});
+const editor=$('#editor'),form=$('#editorForm');function openEditor(){for(const key of ['name','tagline','bio','role','experience','email','videoUrl'])form.elements[key].value=data[key];$('#projectFields').replaceChildren();data.projects.forEach((p,i)=>{for(const [key,label] of Object.entries({title:'标题',tag:'分类与时间',description:'概述',role:'我的角色',work:'核心工作内容',result:'阶段结果',coverUrl:'卡片正面预览图片地址',backUrl:'卡片背面高清图片地址',demoUrl:'作品演示链接',galleryUrls:'详情图片地址（每行一个）',albumUrl:'活动相册链接'})){const l=document.createElement('label');l.textContent=`项目 ${i+1} · ${label}`;const input=document.createElement(key==='result'||key==='description'||key==='work'||key==='galleryUrls'?'textarea':'input');input.name=`project-${i}-${key}`;input.value=p[key];l.append(input);$('#projectFields').append(l)}});fillCareerEditor();editor.showModal()}$('#openEditor').onclick=openEditor;$('#editResume').onclick=openEditor;$('#closeEditor').onclick=()=>editor.close();$('#emailLink').addEventListener('click',e=>{if(!data.email){e.preventDefault();openEditor()}});form.onsubmit=e=>{e.preventDefault();saveCareerEditor();const prev=data.videoUrl;for(const key of ['name','tagline','bio','role','experience','email','videoUrl'])data[key]=form.elements[key].value.trim();data.projects.forEach((p,i)=>{for(const k of Object.keys(p))p[k]=form.elements[`project-${i}-${k}`].value.trim()});try{localStorage.setItem('portfolio-content-v4',JSON.stringify(data));$('#saveStatus').textContent='已保存到此浏览器。'}catch{$('#saveStatus').textContent='浏览器未允许保存，请导出内容备份。'}render();if(prev!==data.videoUrl)loadVideo(data.videoUrl)};
+$('#videoFile').onchange=e=>{const file=e.target.files[0];if(!file)return;if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=URL.createObjectURL(file);loadVideo(objectUrl);$('#videoStatus').textContent='正在加载本机视频；刷新后需要重新选择。'};$('#export').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='portfolio-content.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};$('#import').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;data=validate(JSON.parse(await file.text()));localStorage.setItem('portfolio-content-v4',JSON.stringify(data));render();editor.close();openEditor();loadVideo(data.videoUrl);$('#saveStatus').textContent='内容已导入。'}catch{$('#saveStatus').textContent='无法导入，请选择导出的 JSON 文件。'}};
+$('#editProject').onclick=()=>{openEditor();$('#projectEditor').open=true;form.elements[`project-${selectedProject}-title`].scrollIntoView({block:'center'});form.elements[`project-${selectedProject}-title`].focus()};
+$('#restoreOld').onclick=()=>{try{const old=localStorage.getItem('portfolio-content-v1');if(!old){$('#saveStatus').textContent='此浏览器没有上一版草稿。';return}const source=JSON.parse(old);const restored=validate(source);for(const key of ['name','tagline','bio','role','experience','email','videoUrl'])form.elements[key].value=restored[key];restored.projects.forEach((p,i)=>{for(const k of Object.keys(p))form.elements[`project-${i}-${k}`].value=p[k]});$('#saveStatus').textContent='上一版草稿已填入编辑窗口，点击保存才会应用。'}catch{$('#saveStatus').textContent='无法读取旧草稿。'}};
+function dismissIntro(){$('#intro').classList.add('out');$('#intro').inert=true}$('#skip').onclick=dismissIntro;setTimeout(dismissIntro,2900);render();height();if(data.videoUrl)loadVideo(data.videoUrl);
+if(document.modelContext?.registerTool){const lifecycle=new AbortController();try{Promise.resolve(document.modelContext.registerTool({name:'open_portfolio_editor',description:'Open the visible portfolio editor. Does not save changes or publish content.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false},execute(input){if(!input||typeof input!=='object'||Object.keys(input).length)throw new Error('Expected an empty object');if(!editor.open)openEditor();return {editorOpen:editor.open,storage:'this browser only'}}},{signal:lifecycle.signal})).catch(()=>{});window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true})}catch{}}
 
-filters.forEach((filter) => filter.addEventListener('click', () => {
-  const category = filter.dataset.filter;
-  filters.forEach((item) => item.classList.toggle('is-active', item === filter));
-  cards.forEach((card) => card.classList.toggle('is-hidden', category !== 'all' && !card.dataset.category.split(' ').includes(category)));
-}));
+function renderCareer(){const timeline=$('.work-timeline');timeline.querySelectorAll('article').forEach(el=>el.remove());data.careers.forEach(()=>{const el=document.createElement('article');el.innerHTML='<time></time><h4></h4><span class="career-role"></span><p></p>';timeline.append(el)});const box=$('.strengths');box.replaceChildren();const tag=document.createElement('span');tag.className='eyebrow';tag.textContent='EXPERIENCE / 业务与产品';box.append(tag);for(const block of data.strengths.split(/\n\s*\n/)){const sep=block.indexOf('：');const heading=document.createElement('h3');heading.textContent=sep>=0?block.slice(0,sep):'业务能力';const p=document.createElement('p');p.textContent=sep>=0?block.slice(sep+1):block;box.append(heading,p)}$$('.work-timeline article').forEach((el,i)=>{const c=data.careers[i];el.querySelector('time').textContent=c.date;el.querySelector('h4').textContent=c.company;el.querySelector('.career-role').textContent=c.role;el.querySelector('p').textContent=c.description})}
+function fillCareerEditor(){form.elements.strengths.value=data.strengths;$('#careerFields').replaceChildren();data.careers.forEach((c,i)=>{for(const [key,label] of Object.entries({date:'时间',company:'公司',role:'职位',description:'工作内容'})){const wrap=document.createElement('label');wrap.textContent=`经历 ${i+1} · ${label}`;const input=document.createElement(key==='description'?'textarea':'input');input.name=`career-${i}-${key}`;input.value=c[key];wrap.append(input);$('#careerFields').append(wrap)}})}
+function saveCareerEditor(){data.strengths=form.elements.strengths.value;data.careers.forEach((c,i)=>{for(const key of Object.keys(c))c[key]=form.elements[`career-${i}-${key}`].value})}
 
-menuToggle?.addEventListener('click', () => {
-  const isOpen = nav.classList.toggle('is-open');
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
-});
+function safeUrl(value){try{const u=new URL(value);return /^https?:$/.test(u.protocol)?u.href:''}catch{return ''}}
 
-nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
-  nav.classList.remove('is-open');
-  menuToggle?.setAttribute('aria-expanded', 'false');
-}));
+function projectImage(p,i){return safeUrl(p.coverUrl)||safeUrl(p.backUrl)||(p.galleryUrls||'').split(/\n/).map(safeUrl).find(Boolean)||(i===4?'assets/jd-campus-front.jpg':'')}
+function makeProjectCard(p,i,featured){
+ const card=document.createElement('button');card.type='button';card.className=featured?'portfolio-card':'accordion-card';card.setAttribute('aria-label','查看项目：'+p.title);
+ card.dataset.project=String(i);if(featured)card.dataset.featured=String(i);
+ const inner=document.createElement('div');inner.className='flip-inner';
+ const front=document.createElement('div');front.className='card-front';
+ const back=document.createElement('div');back.className='card-back';back.setAttribute('aria-hidden','true');
+ const title=document.createElement(featured?'h3':'strong');title.className='flip-title';title.textContent=p.title;
+ const tag=document.createElement('small');tag.className='flip-tag';tag.textContent=p.tag;
+ const desc=document.createElement('p');desc.className='flip-description';desc.textContent=p.description;
+ const preview=document.createElement('div');preview.className='flip-preview';const src=projectImage(p,i);
+ const hint=document.createElement('span');hint.className='flip-hint';hint.textContent=src?'悬停翻看作品 ↗':'悬停查看背面 ↗';
+ if(src){const thumb=document.createElement('img');thumb.src=src;thumb.alt='';thumb.loading='lazy';preview.append(thumb);const full=document.createElement('img');full.src=safeUrl(p.backUrl)||(p.galleryUrls||'').split(/\n/).map(safeUrl).find(Boolean)||src;full.alt=p.title+' · 作品原图';full.loading='lazy';back.append(full)}
+ else {const empty=document.createElement('span');empty.className='back-empty';empty.textContent=i===5?'素材 Agent → 选题统筹 → ChatCut 制作 → 小红书发布':'作品高清图待补充';back.append(empty);preview.classList.add('empty-preview')}
+ preview.append(hint);
+ const num=document.createElement('span');num.className='flip-number';num.textContent=String(featured?[0,1,2,5].indexOf(i)+1:i+1);num.setAttribute('aria-hidden','true');
+ const backCaption=document.createElement('span');backCaption.className='back-caption';backCaption.textContent='点击进入项目详情 ↗';back.append(backCaption);
+ const action=document.createElement('span');action.className='flip-action';action.textContent='查看项目 ↗';
+ front.append(tag,title,desc,preview,action,num);inner.append(front,back);card.append(inner);
+ const flip=()=>{card.classList.add('is-flipped');front.setAttribute('aria-hidden','true');back.setAttribute('aria-hidden','false')};
+ const reset=()=>{card.classList.remove('is-flipped');front.setAttribute('aria-hidden','false');back.setAttribute('aria-hidden','true')};
+ preview.onpointerenter=e=>{if(e.pointerType==='mouse'&&(featured||card.classList.contains('expanded')))flip()};
+ preview.onclick=e=>{if(matchMedia('(hover: none)').matches){e.stopPropagation();flip()}};
+ card.onpointerleave=reset;card.onblur=reset;
+ card.onkeydown=e=>{if(e.key===' '){e.preventDefault();card.classList.contains('is-flipped')?reset():flip()}if(e.key==='Escape')reset()};
+ return card;
+}
+function renderPortfolio(){
+ const index=$('.projectIndex'),grid=$('#projectCards');index.replaceChildren();grid.replaceChildren();
+ data.projects.forEach((p,i)=>{
+  const row=makeProjectCard(p,i,false);row.setAttribute('aria-expanded',String(i===0));row.classList.toggle('expanded',i===0);
+  const expand=()=>{highlightFeatured(i);index.querySelectorAll('.accordion-card').forEach(el=>{const yes=el===row;el.classList.toggle('expanded',yes);el.setAttribute('aria-expanded',String(yes));if(!yes)el.classList.remove('is-flipped')})};
+  row.onclick=()=>{if(row.classList.contains('expanded'))openProject(i);else expand()};row.onpointerenter=e=>{if(e.pointerType==='mouse')expand()};row.onfocus=expand;index.append(row);
+   });
+ [0,1,2,5].forEach((i,position)=>{
+  const p=data.projects[i];const card=makeProjectCard(p,i,true);
+  card.querySelector('.flip-title').textContent=['INCHES AGENT','3D涂装模拟器','AI涂装辅助app','AI 内容运营成果'][position];
+  card.onclick=()=>{highlightFeatured(i);openProject(i)};grid.append(card);
 
-window.__portfolioCheck = () => {
-  console.assert(filters.length === 4, 'Expected four project filters');
-  console.assert(cards.length === 4, 'Expected four project cards');
-};
+ });
+}
+function openProject(i){if(i===6){location.href="auction/";return}if(i===2){location.href="paint-app/";return}if(i===5){location.href="content-operations.html";return}if(i===4){location.href="jd-campaign.html";return}if(i===0){location.href='inches-agent/';return}if(i===1){location.href='mini-atelier.html';return}showProject(i);history.replaceState(null,'','#project-'+(i+1));$('#projectDetail').showModal()}
+function renderGallery(p){
+ const gallery=$('#projectGallery');gallery.replaceChildren();const urls=(p.galleryUrls||'').split(/\n/).map(safeUrl).filter(Boolean);
+ if(selectedProject===4)renderJdStory(gallery,p);
+ if(!urls.length&&selectedProject!==4){const empty=document.createElement('div');empty.className='gallery-empty';empty.textContent='作品画面待补充';gallery.append(empty)}
+ urls.forEach(url=>{const img=document.createElement('img');img.src=url;img.alt=p.title+' · 作品展示';img.loading='lazy';img.onerror=()=>{const note=document.createElement('p');note.textContent='图片暂时无法加载，请检查图片地址。';img.replaceWith(note)};gallery.append(img)});
+ const link=$('#demoLink');const url=safeUrl(p.demoUrl);link.hidden=!url;link.href=url||'#';
+}
+$('#closeProject').onclick=()=>{$('#projectDetail').close();history.replaceState(null,'','#projects')};
+$('#projectDetail').addEventListener('cancel',()=>history.replaceState(null,'','#projects'));
+const deepLink=location.hash.match(/^#project-([1-8])$/);if(deepLink){dismissIntro();go(3);openProject(Number(deepLink[1])-1)}
+
+function highlightFeatured(i){$$('[data-featured]').forEach(card=>{card.classList.toggle('is-linked',Number(card.dataset.featured)===i)});}
+
+function renderJdStory(gallery,p){
+ const story=document.createElement('section');story.className='jd-story';story.setAttribute('aria-label','京东项目板块');
+ const items=[['01 / CAMPUS','京东快递毕业季','视觉设计与物料统筹','线上线下活动物料覆盖 5 所高校。'],['02 / BOOKS','京东图书线下会','物料延展','围绕已有活动视觉开展物料延展，保持不同物料的信息与视觉表达一致。']];
+ items.forEach((item,i)=>{const section=document.createElement('article');section.className='jd-section';
+ const small=document.createElement('small');small.textContent=item[0];const title=document.createElement('h3');title.textContent=item[1];const role=document.createElement('span');role.className='jd-role';role.textContent=item[2];const copy=document.createElement('p');copy.textContent=item[3];section.append(small,title,role,copy);
+ if(i===0){const photos=[['assets/jd-campus-front.jpg','活动主视觉与配套物料 · 正面全景'],['assets/jd-campus-angle.jpg','现场空间与物料落地 · 侧面视角']];photos.forEach(([src,caption])=>{const figure=document.createElement('figure');figure.className='jd-photo';const link=document.createElement('a');link.href=src;link.target='_blank';link.rel='noopener';link.setAttribute('aria-label',caption+'，打开原图');const img=document.createElement('img');img.src=src;img.alt=caption;img.loading='lazy';link.append(img);const text=document.createElement('figcaption');text.textContent=caption+' ↗';figure.append(link,text);section.append(figure)})}
+ if(i===1){const url=safeUrl(p.albumUrl);if(url){const link=document.createElement('a');link.className='jd-album';link.href=url;link.target='_blank';link.rel='noopener noreferrer';const caption=document.createElement('span');caption.textContent='查看活动相册 ↗';const note=document.createElement('small');note.textContent='现场记录 · 在新标签页打开';link.append(caption,note);section.append(link)}}
+ story.append(section)});gallery.append(story);
+}
+
+function restoreSectionFromHash(){const id=location.hash.slice(1);const section=['home','about','index','projects','contact'].indexOf(id);if(section>=0){dismissIntro();requestAnimationFrame(()=>go(section))}}
+window.addEventListener('hashchange',()=>{const match=location.hash.match(/^#project-([1-8])$/);if(match){openProject(Number(match[1])-1)}else restoreSectionFromHash()});
+restoreSectionFromHash();

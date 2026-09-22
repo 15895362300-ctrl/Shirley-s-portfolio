@@ -1,0 +1,62 @@
+#index .projectIndex{gap:12px;perspective:1800px;padding:10px 4px 22px;height:clamp(360px,52dvh,580px)}
+#index .accordion-card,#projectCards .portfolio-card{--card-paint:linear-gradient(140deg,#f2d894,#ddbb68);--card-ink:#292b28;padding:0!important;border:0;background:transparent!important;border-radius:22px;overflow:visible;perspective:1500px;box-shadow:none;isolation:auto;transform:none;transition:flex .55s cubic-bezier(.2,.75,.2,1),width .55s}
+#index .accordion-card:nth-child(4n+2),#projectCards .portfolio-card:nth-child(2){--card-paint:linear-gradient(140deg,#596878,#354451);--card-ink:#fff}
+#index .accordion-card:nth-child(4n+3),#projectCards .portfolio-card:nth-child(3){--card-paint:linear-gradient(140deg,#c1ccd5,#8e9eaf);--card-ink:#17232d}
+#index .accordion-card:nth-child(4n),#projectCards .portfolio-card:nth-child(4){--card-paint:linear-gradient(140deg,#dfb9a2,#c38d73);--card-ink:#30231c}
+.flip-inner{position:relative;width:100%;height:100%;min-height:inherit;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.22,.65,.2,1);border-radius:inherit;transform:translateZ(0)}
+.is-flipped .flip-inner{transform:rotateY(180deg)}
+.card-front,.card-back{position:absolute;inset:0;display:flex;flex-direction:column;border-radius:22px;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card-paint);color:var(--card-ink);overflow:hidden;border:1px solid #ffffff65;box-shadow:0 5px 0 #72736a35,0 18px 32px -13px #20282f40;padding:30px;transform:rotateY(0deg) translateZ(1px)}
+.card-back{transform:rotateY(180deg) translateZ(1px);background:#20272d;justify-content:center;align-items:center;padding:18px}
+.card-back>img{width:100%;height:100%;object-fit:contain;border-radius:12px}.back-caption{position:absolute;bottom:15px;left:18px;right:18px;padding:12px;background:#18222ddb;color:white;font-size:13px;border-radius:8px;text-align:center}.back-empty{font-size:17px;color:#e4e7e6;letter-spacing:1px}
+.flip-tag{font-size:12px;letter-spacing:1.5px;line-height:1.6;opacity:.7;max-width:80%;margin-bottom:20px}
+#index .flip-title,#projectCards .flip-title{font:500 clamp(24px,2.15vw,32px)/1.35 Inter,"PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:-.025em;margin:0 0 20px;position:relative;z-index:1;max-width:92%;white-space:normal}
+#index .flip-description,#projectCards .flip-description{font-size:15px;line-height:1.85;letter-spacing:0;margin:0 0 22px;max-width:90%;color:inherit;opacity:.85}
+.flip-preview{position:relative;width:52%;height:100px;min-height:80px;margin-top:auto;border-radius:10px;overflow:hidden;background:#ffffff25;z-index:2;border:1px solid #ffffff55;cursor:pointer}.flip-preview>img{width:100%;height:100%;object-fit:cover}.flip-hint{position:absolute;inset:auto 0 0;padding:8px 10px;font-size:11px;background:#18222dc7;color:#fff}.empty-preview .flip-hint{inset:0;display:flex;align-items:center;justify-content:center;background:transparent;color:inherit;font-size:12px}.flip-action{font-size:13px;margin-top:15px;position:relative;z-index:2;align-self:flex-start}
+.flip-number{position:absolute;bottom:10px;right:20px;z-index:0;font:italic 500 clamp(88px,10vw,154px)/.9 "Bodoni Moda",Didot,"Times New Roman",serif;color:#fff;letter-spacing:-.075em;pointer-events:none;text-shadow:0 1px 12px #00000008}
+#index .accordion-card:not(.expanded) .card-front{padding:22px 10px}#index .accordion-card:not(.expanded) .flip-title{writing-mode:vertical-rl;font-size:17px;line-height:1.35;white-space:nowrap;margin:0 auto;max-width:none;max-height:calc(100% - 85px)}#index .accordion-card:not(.expanded) .flip-tag,#index .accordion-card:not(.expanded) .flip-description,#index .accordion-card:not(.expanded) .flip-preview,#index .accordion-card:not(.expanded) .flip-action{display:none}#index .accordion-card:not(.expanded) .flip-number{right:-44px;bottom:-17px;font-size:110px;opacity:.95}
+#index .accordion-card.expanded{flex:1 1 0}#index .accordion-card.expanded .card-front{padding:30px}#index .accordion-card.expanded .flip-title{writing-mode:horizontal-tb}#index .accordion-card.expanded:hover .flip-inner:not(:focus){transform:translateY(-4px)}#index .accordion-card.expanded.is-flipped:hover .flip-inner{transform:translateY(-4px) rotateY(180deg)}
+#projectCards{gap:28px;padding:10px 6px 28px}#projectCards .portfolio-card:hover{box-shadow:none;transform:none}#projectCards .card-front{padding:34px}#projectCards .flip-title{margin-top:15px}#projectCards .flip-description{max-width:90%}#projectCards .flip-preview{width:55%;height:115px}#projectCards .flip-number{font-size:clamp(100px,11vw,164px)}#projectCards .is-linked{outline-offset:7px;border-radius:22px}
+@media(max-width:1000px){#index .projectIndex{gap:8px}#index .accordion-card.expanded .card-front{padding:24px}#index .flip-title{font-size:25px}#index .flip-description{font-size:14px;line-height:1.65}#index .flip-number{font-size:95px;right:12px}.flip-preview{width:60%;height:85px}#projectCards .card-front{padding:24px}}
+@media(max-width:767px){#index .projectIndex{height:calc(100dvh - 240px);min-height:570px;padding-bottom:20px}#index .accordion-card{min-height:36px;flex-basis:36px;border-radius:12px}#index .accordion-card:not(.expanded) .card-front{padding:8px 18px;border-radius:12px}#index .accordion-card:not(.expanded) .flip-title{writing-mode:horizontal-tb;font-size:14px;line-height:1.4;margin:0;max-height:none}#index .accordion-card:not(.expanded) .flip-number{font-size:60px;right:12px;bottom:-22px}#index .accordion-card.expanded{min-height:285px}#index .accordion-card.expanded .card-front{padding:20px}#index .flip-title{font-size:22px;margin-bottom:10px}.flip-tag{margin-bottom:10px}#index .flip-description{font-size:13px;margin-bottom:10px}.flip-preview{min-height:65px;height:65px}.flip-number{font-size:90px;right:18px;bottom:14px}.flip-action{margin-top:10px}#index .wideCopy{max-height:calc(100dvh - 135px);overflow-y:auto;padding:0 5px 25px}#projectCards .portfolio-card{min-height:470px}#projectCards .flip-title{font-size:26px}#projectCards .flip-description{font-size:14px}#projectCards .flip-preview{height:100px}.card-front,.card-back{border-radius:18px}}
+@media(prefers-reduced-motion:reduce){.flip-inner,#index .accordion-card{transition:none}}
+/* Slim editorial spines: small corners, light calligraphic titles. */
+#index .accordion-card{border-radius:7px}
+#index .card-front,#index .card-back{border-radius:7px;box-shadow:0 3px 0 #72736a24,0 12px 22px -15px #20282f40}
+#index .accordion-card:not(.expanded) .card-front{padding:24px 8px;border-radius:7px}
+#index .accordion-card:not(.expanded) .flip-title{font-family:KaiTi,STKaiti,"Kaiti SC","楷体","Noto Serif SC",serif;font-weight:400;font-synthesis:none;font-size:18px;letter-spacing:.1em;line-height:1.5;text-orientation:mixed}
+#index .accordion-card:not(.expanded) .flip-number{right:-10px;bottom:-20px;font-size:100px;letter-spacing:-.04em}
+/* Four complete cards fit the scene; unequal row spans retain the mosaic rhythm. */
+#projects{padding-top:105px;padding-bottom:35px}
+#projects .wideCopy{height:100%;max-height:none;min-height:0;overflow:visible;padding:0;display:flex;flex-direction:column}
+#projects h2{font-size:clamp(30px,3vw,44px);margin:10px 0 18px}
+#projectCards{flex:1;min-height:0;display:grid;grid-template-columns:1.08fr 1fr;grid-template-rows:repeat(10,minmax(0,1fr));gap:14px;padding:0 4px 8px}
+#projectCards .portfolio-card{min-height:0;border-radius:10px}
+#projectCards .portfolio-card:nth-child(1){grid-column:1;grid-row:1/7}
+#projectCards .portfolio-card:nth-child(2){grid-column:2;grid-row:1/6}
+#projectCards .portfolio-card:nth-child(3){grid-column:1;grid-row:7/11}
+#projectCards .portfolio-card:nth-child(4){grid-column:2;grid-row:6/11}
+#projectCards .card-front,#projectCards .card-back{border-radius:10px;padding:clamp(14px,1.7vw,24px)}
+#projectCards .flip-tag{margin:0 0 8px;font-size:12px;max-width:85%;line-height:1.3}
+#projectCards .flip-title{font-size:clamp(20px,1.8vw,28px);margin:0 0 8px;max-width:90%;line-height:1.25}
+#projectCards .flip-description{font-size:14px;line-height:1.6;max-width:80%;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#projectCards .flip-preview{position:absolute;right:22px;bottom:18px;width:76px;height:48px;min-height:0;border-radius:5px}
+#projectCards .flip-hint{font-size:10px;padding:3px}
+#projectCards .empty-preview .flip-hint{font-size:11px}
+#projectCards .flip-action{margin-top:auto;padding-top:10px;font-size:13px}
+#projectCards .flip-number{font-size:clamp(62px,7vw,100px);right:112px;bottom:12px;line-height:.95}
+#projectCards .is-linked{border-radius:10px;outline-offset:3px;outline-width:1px}
+@media(max-height:760px){#projectCards .flip-description{display:none}#projectCards .flip-number{font-size:65px}#projects{padding-top:90px;padding-bottom:25px}}
+@media(max-width:767px){#index .accordion-card:not(.expanded) .flip-title{writing-mode:horizontal-tb;font-size:15px;letter-spacing:.06em}#index .accordion-card:not(.expanded) .card-front{padding:7px 16px}#index .accordion-card:not(.expanded) .flip-number{font-size:54px;right:10px;bottom:-20px}#projects{padding:90px 6% 25px}#projectCards{gap:10px;grid-template-columns:1fr 1fr}#projectCards .card-front,#projectCards .card-back{padding:14px}#projectCards .flip-title{font-size:18px;max-width:100%}#projectCards .flip-tag{display:none}#projectCards .flip-description{display:none}#projectCards .flip-number{font-size:62px;right:12px;bottom:12px}#projectCards .flip-preview{left:14px;right:auto;bottom:50px;width:55px;height:40px}#projectCards .flip-action{font-size:12px;max-width:70%}}
+/* Project identity palettes, shared by the index and selected-work cards. */
+#index .accordion-card[data-project="0"],#projectCards .portfolio-card[data-project="0"]{--card-paint:linear-gradient(135deg,#dffa8a,#bee451);--card-ink:#20291b}
+#index .accordion-card[data-project="1"],#projectCards .portfolio-card[data-project="1"]{--card-paint:linear-gradient(135deg,#29332d,#151d19);--card-ink:#f6f8f2}
+#index .accordion-card[data-project="2"],#projectCards .portfolio-card[data-project="2"]{--card-paint:linear-gradient(135deg,#42dedb,#1cbbb9);--card-ink:#103c3b}
+#index .accordion-card[data-project="3"],#projectCards .portfolio-card[data-project="3"]{--card-paint:linear-gradient(135deg,#3d69e5,#274bb4);--card-ink:#fff}
+#index .accordion-card[data-project="4"],#projectCards .portfolio-card[data-project="4"]{--card-paint:linear-gradient(135deg,#7942c2,#4c258a);--card-ink:#fff}
+#index .accordion-card[data-project="5"],#projectCards .portfolio-card[data-project="5"]{--card-paint:linear-gradient(135deg,#e7ff79,#c4e844);--card-ink:#263018}
+#index .accordion-card[data-project="6"],#projectCards .portfolio-card[data-project="6"]{--card-paint:linear-gradient(135deg,#d89c46,#b97b25);--card-ink:#271d10}
+#index .accordion-card[data-project="7"],#projectCards .portfolio-card[data-project="7"]{--card-paint:linear-gradient(135deg,#b68af4,#9563dc);--card-ink:#291344}
+#index .accordion-card.expanded .flip-title,#projectCards .flip-title{font-family:Inter,"Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;font-weight:400;letter-spacing:-.035em;line-height:1.3}
+#index .accordion-card.expanded .flip-tag,#projectCards .flip-tag{font-family:Inter,"Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;font-weight:400;letter-spacing:.06em;opacity:.85}
+#index .accordion-card.expanded .flip-description,#projectCards .flip-description{font-family:Inter,"Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;font-weight:400;letter-spacing:.01em;opacity:.9}
+#index .flip-number,#projectCards .flip-number{font-family:Inter,"Helvetica Neue",Arial,sans-serif;font-style:normal;font-weight:750;letter-spacing:-.065em;line-height:.95}

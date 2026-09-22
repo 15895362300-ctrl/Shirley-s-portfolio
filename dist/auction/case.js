@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-page]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-page]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));const url='prototype/'+button.dataset.page;document.querySelector('iframe').src=url;document.querySelector('#direct').href=url}));

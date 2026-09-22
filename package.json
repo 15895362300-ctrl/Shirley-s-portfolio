@@ -1,0 +1,1 @@
+{"name":"shirley-portfolio","private":true,"type":"module","scripts":{"build":"node build.mjs"},"dependencies":{"lucide-react":"^0.468.0","motion":"^12.0.0","react":"^18.3.1","react-dom":"^18.3.1"},"devDependencies":{"@tailwindcss/cli":"^4.0.0","esbuild":"^0.25.0","jsdom":"^30.1.0","tailwindcss":"^4.0.0"}}

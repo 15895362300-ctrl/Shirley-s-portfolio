@@ -1,29 +1,27 @@
 # Shirley’s Portfolio
 
-个人作品集：首页、履历、项目目录、精选项目与联系方式，以及各项目独立案例页。
+本仓库完整迁移自原作品集第 26 版，保留原页面、文案、样式、图片、案例和演示原型。
 
-## 本地运行
+原站：https://ai-story-portfolio.citrus-moon-5505.chatgpt.site
 
-静态页面已保存在 `dist/`，可直接通过 HTTP 服务预览：
+## 本地预览
 
 ```sh
 python3 -m http.server 8080 --directory dist
 ```
 
-打开 http://localhost:8080 。
+## 源码
 
-## 当前页面
+- `dist/`：与原站第 26 版一致的完整发布文件。
+- `src/`：首页 React 组件源代码。
+- `build.mjs`：首页组件构建脚本；需要更新组件时执行 `npm ci` 与 `npm run build`。
+- `dist/auction/`、`dist/paint-app/`、`dist/inches-agent/`：独立案例和演示页面。
 
-首页聚焦 AI 产品设计、工作流重构与 AI 业务系统，包含：
+页面内容编辑保存在当前浏览器，不会自动写回 GitHub。演示数据不代表真实交易。
 
-- 个人定位与核心工作方法
-- 精选项目卡片与分类筛选
-- 四层 AI 能力进阶
-- 关于 Shirley 与 GitHub 联系入口
-- 移动端导航和无障碍基础支持
+## GitHub Pages
 
-页面不依赖构建工具或第三方运行时，直接部署 `dist/` 即可。
+在仓库 Settings → Pages 中使用 GitHub Actions 作为发布来源。
+推送至 `main` 时，工作流原样发布 `dist/`，不重新构建或改写页面。
 
-## 部署
-
-静态发布目录为 `dist/`。原网站的托管账户配置和访问凭据不包含在迁移文件中。仓库同步本身不会改变原网站地址或可见范围。
+原始来源提交：`d408fad0c69bb500877bd025c9bda9b96d04062a`。
