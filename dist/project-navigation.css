@@ -10,3 +10,17 @@ nav.pn-bottom>a:last-child{align-items:flex-end;text-align:right;justify-self:en
 nav.pn-bottom>a>small,nav.pn-bottom>a>span{margin:0;padding:0;max-width:100%;line-height:1.5;overflow-wrap:anywhere}
 #projectDetail nav.pn-bottom{width:100%;margin-top:35px}
 @media(max-width:767px){nav.pn-bottom{width:88%;column-gap:24px;padding:24px 0 28px}nav.pn-bottom>a{min-height:88px}nav.pn-bottom span{font-size:16px}}
+
+/* Compact editorial navigation, shared by every case-study page. */
+.pn-guide{display:flex;flex-direction:column;align-items:flex-end;gap:8px;right:22px;transform:translateY(-50%)}
+.pn-toggle{display:flex;align-items:center;justify-content:center;gap:9px;width:auto;min-width:44px;height:44px;padding:0 13px;border:1px solid #d7dacf;border-radius:24px;background:#fafcf5f5;color:#26311f;box-shadow:0 3px 12px #18220b0d;font-size:13px;line-height:1;transition:background .2s,border-color .2s}
+.pn-toggle svg{width:18px;height:18px;flex-shrink:0}.pn-toggle small{font-size:10px;opacity:.55;letter-spacing:.06em}.pn-toggle:hover,.pn-toggle[aria-expanded=true]{background:#e7ff79;border-color:#b6c971}.pn-toggle:focus-visible{outline:2px solid #536c21;outline-offset:4px}.pn-top{margin:0;width:44px;padding:0;background:#fffffff2}
+.pn-panel{right:0;top:calc(100% + 12px);transform:none;width:310px;max-height:min(65dvh,480px);border:1px solid #d7dacf;border-radius:16px;padding:10px;box-shadow:0 12px 36px #18220b15;background:#fafcf5fa}
+.pn-panel a{border-radius:8px;font-size:13px;padding:12px;transition:background .2s}.pn-panel a[aria-current]{background:#e7ff79}.pn-panel a:hover{background:#eef3e4}
+@media(min-height:720px){.pn-panel{top:50%;right:calc(100% + 12px);transform:translateY(-50%)}}
+@media(max-width:767px){.pn-guide{right:12px;top:auto;bottom:76px;transform:none}.pn-toggle{height:44px}.pn-panel{top:auto;bottom:calc(100% + 12px);right:0;transform:none;width:min(310px,calc(100vw - 24px));max-height:65dvh}.pn-toggle small{display:none}}
+/* Icon at rest; reveal the existing label only on deliberate interaction. */
+.pn-toggle:not(.pn-top){width:44px;gap:0;padding:0;transition:width .2s,background .2s}
+.pn-toggle:not(.pn-top)>span,.pn-toggle:not(.pn-top)>small{display:none}
+.pn-toggle:not(.pn-top):hover,.pn-toggle:not(.pn-top):focus-visible,.pn-toggle[aria-expanded=true]{width:112px;gap:9px;padding:0 13px}
+.pn-toggle:not(.pn-top):hover>span,.pn-toggle:not(.pn-top):hover>small,.pn-toggle:not(.pn-top):focus-visible>span,.pn-toggle:not(.pn-top):focus-visible>small,.pn-toggle[aria-expanded=true]>span,.pn-toggle[aria-expanded=true]>small{display:inline}

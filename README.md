@@ -1,6 +1,6 @@
 # Shirley’s Portfolio
 
-本仓库完整迁移自原作品集第 26 版，保留原页面、文案、样式、图片、案例和演示原型。
+本仓库同步原作品集的已发布内容，保留页面、文案、样式、图片、案例和演示原型。
 
 原站：https://ai-story-portfolio.citrus-moon-5505.chatgpt.site
 
@@ -12,12 +12,12 @@ python3 -m http.server 8080 --directory dist
 
 ## 源码
 
-- `dist/`：与原站第 26 版一致的完整发布文件。
+- `dist/`：完整发布文件。
 - `src/`：首页 React 组件源代码。
 - `build.mjs`：首页组件构建脚本；需要更新组件时执行 `npm ci` 与 `npm run build`。
 - `dist/auction/`、`dist/paint-app/`、`dist/inches-agent/`：独立案例和演示页面。
 
-页面内容编辑保存在当前浏览器，不会自动写回 GitHub。演示数据不代表真实交易。
+网站为只读作品集，已移除履历及内容编辑入口、编辑表单、保存与导入功能。已有浏览器草稿不会被删除；后续内容更新通过源码修改并发布。演示数据不代表真实交易。
 
 ## GitHub Pages
 

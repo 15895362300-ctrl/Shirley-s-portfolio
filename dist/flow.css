@@ -11,3 +11,8 @@
 #index .accordion-card>span,#projectCards .card-visual>span{font-size:14px;font-weight:400;letter-spacing:1px}
 @media(max-width:767px){#index h2,#projects h2{font-size:32px}#index .accordion-card>strong{font-size:14px}#index .accordion-card.expanded>strong,#projectCards h3{font-size:24px}#index .accordion-body p,#projectCards p{font-size:14px;line-height:1.85}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* Education follows the retained work history in the same editorial column. */
+.education-tools{margin:12px 0 20px}
+.education-tools h3{font-size:20px;font-weight:500;margin:20px 0 12px;line-height:1.4}
+.education-tools h3 span{font-size:10px;color:#838b7c;letter-spacing:1px;margin-left:12px}
+.education-tools p{font-size:14px;line-height:1.8;color:#626b61;margin:7px 0;overflow-wrap:anywhere}

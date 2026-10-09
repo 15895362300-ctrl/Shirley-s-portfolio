@@ -1,7 +1,7 @@
 (()=>{
  const base='https://ai-story-portfolio.citrus-moon-5505.chatgpt.site/';
  const names=['INCHES AGENT 总控','3D涂装模拟器','涂装辅助APP','研发资源与部署Agent','京东快递毕业季与京东图书线下会','AI内容运营','收藏拍卖小程序','AI辅助品牌视觉设计与商业交付'];
- const urls=[base+'inches-agent/',base+'mini-atelier.html','https://fangcun-h5-portfolio.citrus-moon-5505.chatgpt.site',base+'#project-4',base+'jd-campaign.html',base+'content-operations.html',base+'#project-7',base+'#project-8'];
+ const urls=[base+'inches-agent/',base+'mini-atelier.html','https://fangcun-h5-portfolio.citrus-moon-5505.chatgpt.site',base+'rd-agent.html',base+'jd-campaign.html',base+'content-operations.html',base+'#project-7',base+'pansong-model.html'];
  const script=document.currentScript;const initial=Number(script.dataset.project);const modal=document.querySelector('#projectDetail');
  function mount(root,index,isModal=false){
  root.querySelectorAll('.pn-back,.pn-guide,.pn-bottom').forEach(el=>el.remove());

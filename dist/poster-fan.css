@@ -1,0 +1,17 @@
+.poster-fan{margin:28px 0 0}
+.fan-stage{height:490px;position:relative;isolation:isolate;perspective:1200px;overflow:hidden;touch-action:pan-y}
+.fan-card{position:absolute;left:50%;top:72px;width:clamp(120px,16vw,190px);aspect-ratio:3/4;transform:translate(calc(-50% + var(--x)),var(--y)) rotate(var(--angle));transform-origin:50% 120%;z-index:var(--z);transition:transform .32s cubic-bezier(.2,.8,.2,1),filter .25s;filter:brightness(.65);border:1px solid #ffffff38;border-radius:6px;box-shadow:0 14px 32px #0008;background:#151515;overflow:hidden;outline-offset:5px}
+.fan-card img{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}
+.fan-card.is-active{z-index:30;filter:brightness(1);transform:translate(calc(-50% + var(--x)),-24px) rotate(0deg) scale(1.12);box-shadow:0 20px 48px #000a}
+.fan-card:focus-visible{outline:2px solid #e7ff79}
+.fan-footer{display:flex;align-items:center;justify-content:center;gap:20px;min-height:60px}
+.fan-footer p{margin:0;text-align:center;font-size:13px;letter-spacing:.04em;min-width:230px;color:#ddd}
+.fan-footer button,.poster-lightbox button{border:1px solid #ffffff55;background:transparent;color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font:20px/1 sans-serif}
+.poster-lightbox{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;border:0;margin:0;padding:60px 24px 24px;background:#111f;color:white;overflow:auto}
+.poster-lightbox::backdrop{background:#000c}
+.poster-lightbox[open]{display:flex;flex-direction:column;align-items:center;gap:12px}
+.poster-lightbox img{display:block;max-width:100%;height:auto;max-height:calc(100dvh - 130px);object-fit:contain}
+.poster-lightbox button{position:fixed;right:24px;top:16px;background:#222}
+.poster-lightbox p{margin:0;font-size:14px}.poster-lightbox a{font-size:13px;color:#e7ff79;text-decoration:underline}
+@media(max-width:767px){.fan-stage{height:350px;display:flex;align-items:center;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:30px 24px;touch-action:pan-x pan-y}.fan-card{position:relative;left:auto;top:auto;flex:0 0 150px;width:150px;scroll-snap-align:center;transform:rotate(-6deg);filter:brightness(.85)}.fan-card:nth-child(even){transform:rotate(6deg)}.fan-card.is-active{transform:translateY(-10px) scale(1.03)}.fan-footer{gap:8px}.fan-footer p{min-width:0;flex:1}.poster-lightbox{padding:68px 12px 20px}}
+@media(prefers-reduced-motion:reduce){.fan-card{transition:none}}

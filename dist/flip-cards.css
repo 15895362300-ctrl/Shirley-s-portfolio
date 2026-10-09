@@ -60,3 +60,58 @@
 #index .accordion-card.expanded .flip-tag,#projectCards .flip-tag{font-family:Inter,"Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;font-weight:400;letter-spacing:.06em;opacity:.85}
 #index .accordion-card.expanded .flip-description,#projectCards .flip-description{font-family:Inter,"Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;font-weight:400;letter-spacing:.01em;opacity:.9}
 #index .flip-number,#projectCards .flip-number{font-family:Inter,"Helvetica Neue",Arial,sans-serif;font-style:normal;font-weight:750;letter-spacing:-.065em;line-height:.95}
+/* Native document flow: no transparent fixed-page overlap or nested scroll traps. */
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
+#scrollSpace{height:auto}
+.scene,.scene.active{position:relative;inset:auto;min-height:100svh;opacity:1;visibility:visible;pointer-events:auto;transform:none;overflow:visible;scroll-snap-align:start;scroll-snap-stop:always}
+#home{overflow:visible}
+#index,#projects,#contact{background:#fff}
+#index .wideCopy,#projects .wideCopy{max-height:none;overflow:visible}
+#projects{height:max(100svh,700px)}
+#index .projectIndex{height:clamp(400px,52svh,580px)}
+#index .accordion-card{transition:flex .3s cubic-bezier(.22,.61,.36,1),width .3s}
+.flip-inner{transition:transform .55s cubic-bezier(.22,.61,.36,1)}
+html[data-portfolio-return] #intro{display:none}
+@media(max-width:767px){#index .projectIndex{height:650px;min-height:650px}#index .wideCopy{padding:0}#projects{height:max(100svh,680px)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}#index .accordion-card,.flip-inner{transition:none}}
+/* Artwork is part of the card layout, not a corner thumbnail. */
+#projects{height:auto;min-height:100svh}
+#projectCards{flex:none;grid-template-rows:repeat(10,86px);gap:18px}
+#projectCards .card-front{display:grid;grid-template-columns:1fr;grid-template-rows:auto auto auto minmax(100px,1fr) auto;gap:10px}
+#projectCards .flip-tag,#projectCards .flip-title,#projectCards .flip-description{margin:0;max-width:100%}
+#projectCards .flip-description{display:-webkit-box;-webkit-line-clamp:2}
+#projectCards .flip-preview{position:relative;inset:auto;width:70%;height:100%;min-height:0;margin:4px 0 0;border-radius:8px;grid-row:4;align-self:stretch}
+#projectCards .flip-preview img{object-fit:contain}
+#projectCards .flip-action{grid-row:5;padding-top:6px;min-height:56px;margin:0;display:flex;align-items:flex-end;justify-content:space-between;width:100%}
+#projectCards .flip-action .flip-number{position:static;font-size:56px;line-height:1;flex:none}
+#projectCards .flip-preview{overflow:hidden;max-height:260px}
+#projectCards .flip-number{right:22px;bottom:18px;font-size:clamp(64px,6vw,100px)}
+#projectCards .portfolio-card:first-child .flip-preview{width:84%;height:100%;max-height:260px;align-self:center;margin:0}
+#projectCards .portfolio-card:nth-child(3) .card-front{grid-template-columns:43% minmax(0,1fr);grid-template-rows:auto auto 1fr auto;column-gap:16px}
+#projectCards .portfolio-card:nth-child(3) .flip-tag,#projectCards .portfolio-card:nth-child(3) .flip-title,#projectCards .portfolio-card:nth-child(3) .flip-description{grid-column:1}
+#projectCards .portfolio-card:nth-child(3) .flip-preview{grid-column:2;grid-row:1/4;width:100%;height:100%;margin:0}
+#projectCards .portfolio-card:nth-child(3) .flip-action{grid-column:1/-1;grid-row:4}
+#projectCards .portfolio-card:nth-child(3) .flip-number{font-size:56px}
+#index .projectIndex{height:clamp(460px,56svh,620px)}
+#index .accordion-card.expanded .flip-preview{width:72%;height:clamp(135px,22svh,210px);min-height:110px}
+#index .accordion-card.expanded .flip-description{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:14px}
+@media(min-width:768px) and (min-height:800px){
+ #projects{height:100svh}
+ #projectCards{flex:1;grid-template-rows:repeat(10,minmax(0,1fr));gap:14px}
+ #projectCards .card-front{gap:6px;grid-template-rows:auto auto auto minmax(70px,1fr) auto}
+ #projectCards .flip-action{min-height:30px}
+ #projectCards .flip-number{font-size:60px}
+}
+@media(max-width:767px){
+ #projectCards{display:grid;grid-template-columns:1fr;grid-template-rows:none;gap:18px}
+ #projectCards .portfolio-card:nth-child(n){grid-column:1;grid-row:auto;min-height:440px}
+ #projectCards .portfolio-card:nth-child(3) .card-front{grid-template-columns:1fr;grid-template-rows:auto auto auto minmax(100px,1fr) auto}
+ #projectCards .portfolio-card:nth-child(3) .flip-preview{grid-column:1;grid-row:4;width:75%;margin-top:4px}
+ #projectCards .portfolio-card:nth-child(3) .flip-action{grid-row:5}
+ #projectCards .flip-tag{display:block}#projectCards .flip-title{font-size:24px}
+ #projectCards .flip-preview{width:75%;height:100%;min-height:0}
+ #projectCards .flip-number{font-size:64px}
+ #index .projectIndex{height:740px;min-height:740px}
+ #index .accordion-card.expanded{min-height:350px}
+ #index .accordion-card.expanded .flip-preview{height:150px;min-height:120px;width:78%}
+}
